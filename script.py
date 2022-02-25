@@ -5,7 +5,11 @@ import json
 # side function turning kelvin to celcius 
 f = lambda k : k - 273.15
 # getting location from city/place : 
-place = "Grenoble, France"
+
+place = "Grenoble, France" # change this to your city/adress/place
+# You can also ask the user the city using an input (as shown below)
+# place = input("Enter city/place : ")
+
 geolocator = Nominatim(user_agent="student") # instance of Nominatim class
 location = geolocator.geocode(place)
 
@@ -13,9 +17,9 @@ location = geolocator.geocode(place)
 lat, lon = location.latitude, location.longitude
 
 # apikey used at openweather
-APIKEY = '51830d9db8166c65f5b0f3571498aed5'
+APIKEY = "" #PUT YOUR API KEY IN THIS VARIABLE
 
-# url pattern used for the api call
+# url used for the http request
 url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={APIKEY}"
 
 # http request
