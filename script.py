@@ -6,7 +6,7 @@ import json
 f = lambda k : k - 273.15
 # getting location from city/place : 
 
-place = "Grenoble, France" # change this to your city/adress/place
+place = "Saint Martin d'Hères, France" # change this to your city/adress/place
 # You can also ask the user the city using an input (as shown below)
 # place = input("Enter city/place : ")
 
@@ -16,8 +16,9 @@ location = geolocator.geocode(place)
 # latitude and longitude of the place
 lat, lon = location.latitude, location.longitude
 
-# apikey used at openweather
-APIKEY = "" #PUT YOUR API KEY IN THIS VARIABLE
+# apikey used at openweather (stored in local file only)
+container_file = open('./apikey.txt', 'r')
+APIKEY = container_file.read().replace("\n", "")
 
 # url used for the http request
 url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={APIKEY}"
