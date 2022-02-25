@@ -1,6 +1,6 @@
 import requests
 import json
-import geocode
+import geocoder
 
 # side function turning kelvin to celcius 
 f = lambda k : k - 273.15
