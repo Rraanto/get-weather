@@ -1,20 +1,15 @@
-from geopy.geocoders import Nominatim 
 import requests
 import json
+import geocoder
 
-# side function turning kelvin to celcius 
+# side function converting kelvin to celcius 
 f = lambda k : k - 273.15
-# getting location from city/place : 
+# getting location from ip adress : 
+location = geocoder.ip('me')
+place = str(location[0]).replace("[", "").replace("]", "")
 
-place = "Saint Martin d'Hères, France" # change this to your city/adress/place
-# You can also ask the user the city using an input (as shown below)
-# place = input("Enter city/place : ")
-
-geolocator = Nominatim(user_agent="student") # instance of Nominatim class
-location = geolocator.geocode(place)
-
-# latitude and longitude of the place
-lat, lon = location.latitude, location.longitude
+# latitude and longitude of the location
+lat, lon = location.latlng[0], location.latlng[1]
 
 # apikey used at openweather (stored in local file only)
 container_file = open('./apikey.txt', 'r')
@@ -31,7 +26,7 @@ if int(r.status_code) == 200:
     response = json.loads(r.text)
     main_data = response['current']
     main_weather = main_data['weather'][0]
-    print(f"""Weather in {place} : 
+    print(f"""Weather in {str(place)} : 
 {main_weather['main']}, {main_weather['description']};
 temperature : {"%.2f" % f(main_data['feels_like'])}°C,
 pressure 	: {main_data['pressure']},
