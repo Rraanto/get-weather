@@ -6,8 +6,8 @@ import geocoder
 f = lambda k : k - 273.15
 
 # getting location from IP adress : 
-location = geocode.ip('me')
-place = location[0].replace("[", "").replace("]", "")
+location = geocoder.ip('me')
+place = str(location[0]).replace("[", "").replace("]", "")
 
 
 # latitude and longitude of the place
