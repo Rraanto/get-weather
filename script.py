@@ -26,11 +26,10 @@ if int(r.status_code) == 200:
     response = json.loads(r.text)
     main_data = response['current']
     main_weather = main_data['weather'][0]
-    print(f"""Weather in {str(place)} : 
-{main_weather['main']}, {main_weather['description']};
-temperature : {"%.2f" % f(main_data['feels_like'])}°C,
-pressure 	: {main_data['pressure']},
-humidity 	: {main_data['humidity']}	
-""")
+    print(f"{place}")
+    print(f"{main_weather['main']}, {main_weather['description']}")
+    print(f"{'Temperature' : <15} : {'%.2f' % f(main_data['feels_like'])}°C")
+    print(f"{'Pressure' : <15} : {main_data['pressure']}")
+    print(f"{'Humidity' : <15} : {main_data['humidity']}")
 else : 
 	print(f"Code {r.status_code}")
