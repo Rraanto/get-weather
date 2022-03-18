@@ -4,6 +4,7 @@ import geocoder
 import tkinter as tk
 from tkinter import ttk
 
+
 # side function converting kelvin to celcius
 def f(k):
     return k - 273.15
@@ -45,17 +46,40 @@ window.geometry("512x256")
 s = ttk.Style()
 s.theme_use('clam')
 
-title = ttk.Label(window, text=place, background="white", font="Helvetica 18 bold")
+title = ttk.Label(window, text=place, background="white", font="Helvetica 20 bold")
 title.pack()
 
-body = ttk.Frame(window)
+main_weather_description = ttk.Label(
+    window,
+    background="white",
+    text=f"{main_weather['main'].capitalize()}, {main_weather['description']}",
+    font="Helvetica 18 bold"
+)
+main_weather_description.pack()
 
-temp = ttk.Label(body, background="white", text=f"Temperature : {main_data['feels_like']}K").grid(row=0, column=0)
-pres = ttk.Label(body, background="white", text=f"Pressure : {main_data['pressure']}").grid(row=1, column=0)
-hum = ttk.Label(body, background="white", text=f"Humidity : {main_data['humidity']}").grid(row=2, column=0)
+temp = ttk.Label(
+    window,
+    background="white",
+    text=f"Temperature : {main_data['feels_like']}K",
+    font="Helvetica 16"
+)
+pres = ttk.Label(
+    window,
+    background="white",
+    text=f"Pressure : {main_data['pressure']}",
+    font="Helvetica 16"
+)
+hum = ttk.Label(
+    window,
+    background="white",
+    text=f"Humidity : {main_data['humidity']}",
+    font="Helvetica 16"
+)
+
+temp.pack(ipady=6, ipadx=6, anchor="w")
+pres.pack(ipady=6, ipadx=6,anchor="w")
+hum.pack(ipady=6, ipadx=6, anchor="w")
 
 s.theme_use('clam')
 
-
-body.pack()
 window.mainloop()
