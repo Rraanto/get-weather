@@ -2,9 +2,11 @@ import requests
 import json
 import geocoder
 
-# side function converting kelvin to celcius 
-f = lambda k : k - 273.15
-# getting location from ip adress : 
+# side function converting kelvin to celcius
+def f(x):
+    return x - 273.15
+
+# getting location from ip adress :
 location = geocoder.ip('me')
 place = str(location[0]).replace("[", "").replace("]", "")
 
@@ -31,5 +33,5 @@ if int(r.status_code) == 200:
     print(f"{'Temperature' : <15} : {'%.2f' % f(main_data['feels_like'])}°C")
     print(f"{'Pressure' : <15} : {main_data['pressure']}")
     print(f"{'Humidity' : <15} : {main_data['humidity']}")
-else : 
-	print(f"Code {r.status_code}")
+else:
+    print(f"Code {r.status_code}")
