@@ -9,11 +9,11 @@ WORKPATH = pathlib.Path(__file__).parent.absolute()
 # styling constants
 # headers
 H1 = "Avenir 44 bold"
-H2 = "Avenir 22 bold"
-H3 = "Avenir 16"
+H2 = "Avenir 30 bold"
+H3 = "Avenir 25"
 
 # paragraph
-P = "Avenir 14"
+P = "Helvetica 22"
 
 # color hex codes
 FIRE_ENGINE_RED = "#C1292E"
@@ -26,11 +26,9 @@ CAMBRIDGE_BLUE = "#A2C5AC"
 GLAUCOUS = "#6E7DAB"
 ROYAL_BLUE_LIGHT = "#5762D5"
 
-# path constants
-
 
 class Window(tk.Tk):
-    def __init__(self, place, subtitle):
+    def __init__(self, place, subtitle, temperature, humidity, pressure):
         super().__init__()
         # general configuration of the window
         self.geometry("600x500")
@@ -68,33 +66,82 @@ class Window(tk.Tk):
             master=self.main_frame,
         )
 
-        # test : add icon
-        icon1 = Image.open("/users/rantonyainarakotondrajoa/requests/assets/icons/temperature.png")
-        icon1 = icon1.resize((50, 50))
-        self.icontk = ImageTk.PhotoImage(icon1, master=self.main_frame)
-        self.label1 = tk.Label(image=self.icontk)
-        self.label1.image = self.icontk
+        self.temp_title = tk.Label(
+            master=self.center_frame,
+            text="Temperature : ",
+            font=P
+        ).grid(row=0, column=0, sticky="w")
 
-        self.label1.place(x=0, y=0)
+        self.temp_res = tk.Label(
+            master=self.center_frame,
+            text=temperature,
+            font=P
+        ).grid(row=0, column=1)
 
-        self.main_frame.pack()
-        self.set_background(ROYAL_BLUE_LIGHT)
-        self.set_foreground(CULTURED)
-        self.mainloop()
+        self.pres_title = tk.Label(
+            master=self.center_frame,
+            text="Pressure : ",
+            font=P
+        ).grid(row=1, column=0, sticky="w")
+
+        self.pres_res = tk.Label(
+            master=self.center_frame,
+            text=pressure,
+            font=P
+        ).grid(row=1, column=1)
+
+        self.hum_title = tk.Label(
+            master=self.center_frame,
+            text="Humidity : ",
+            font=P
+        ).grid(row=2, column=0, sticky="w")
+
+        self.hum_res = tk.Label(
+            master=self.center_frame,
+            text=humidity,
+            font=P
+        ).grid(row=2, column=1)
+
+        self.center_frame.pack(
+            expand=True, anchor="w",
+            pady=10,
+            padx=0
+        )
+        self.main_frame.pack(
+            expand=True,
+            anchor="n"
+        )
+        self.set_background(CULTURED)
+        self.set_foreground(EERIE_BLACK)
 
     def set_background(self, color):
         self['bg'] = color
         self.main_frame.configure(bg=color)
-        self.header.configure(bg=color)
-        self.title.configure(bg=color)
-        self.center_frame.configure(bg=color)
+        for children in self.main_frame.winfo_children():
+            children.configure(bg=color)
+        for children in self.center_frame.winfo_children():
+            children.configure(bg=color)
 
     def set_foreground(self, color):
-        self.header.configure(fg=color)
-        self.title.configure(fg=color)
+        for children in self.main_frame.winfo_children():
+            if type(children) == tk.Label:
+                children.configure(fg=color)
+        for children in self.center_frame.winfo_children():
+            children.configure(fg=color)
 
 
 if __name__ == "__main__":
     place = "Saint-Martin-D'Hères, France"
     main_weather = "Overcast clouds"
-    draft_window = Window(place, main_weather)
+    temperature = "15°C"
+    humidity = "85%"
+    pressure = "1009"
+    draft_window = Window(
+        place=place,
+        subtitle=main_weather,
+        temperature=temperature,
+        pressure=pressure,
+        humidity=humidity
+    )
+
+    draft_window.mainloop()
